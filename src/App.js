@@ -2,12 +2,23 @@
 import { useState, useEffect } from 'react'
 import TaskList from './TaskList';
 
+
+fetch("https://catfact.ninja/fact")
+  .then((res) => res.json())
+  .then((data) => {
+    console.log(data.fact);
+  })
+
+
 function App() {
 
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState('');
 
   const addNewTask = () => {
+    const url = "https://catfact.ninja/fact";
+
+
 
     const task = {
       id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
