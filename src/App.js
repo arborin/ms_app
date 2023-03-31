@@ -1,21 +1,66 @@
 // import styles from './App.module.css';
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import TaskList from './TaskList';
 
 function App() {
 
-  const [counter, setCounter] = useState(0);
+  const [todoList, setTodoList] = useState([]);
+  const [newTask, setNewTask] = useState('');
 
+  const addNewTask = () => {
+
+    const task = {
+      id: todoList.length === 0 ? 1 : todoList[todoList.length - 1].id + 1,
+      taskName: newTask,
+      completed: false
+    }
+
+    setTodoList([...todoList, task]);
+    setNewTask('');
+  }
+
+  useEffect(() => {
+    console.log("use effect run");
+
+
+    return () => {
+      console.log("component unmoutned!")
+    }
+
+  }, []);
+
+
+  const deleteTask = (id) => {
+
+    const newList = todoList.filter((item) => item.id !== id)
+
+    setTodoList(newList);
+  }
+
+  const complateTask = (id) => {
+    const newList = todoList.map((item) => {
+      if (item.id === id) {
+        item.completed = !item.completed
+      }
+
+      return item
+    })
+    setTodoList(newList);
+
+  }
 
   return (
-    <div>
-      <h1>{counter}</h1>
-      <button onClick={() => setCounter(counter + 1)}>Increase</button>
-      <button onClick={() => setCounter(counter - 1)}>Decrease</button>
-      <button onClick={() => setCounter(0)}>Set To Zero</button>
+    <div className='App'>
+      <div className='addTask'>
+        <input value={newTask} onChange={(e) => { setNewTask(e.target.value) }} />
+        <button onClick={addNewTask}>Add Task</button>
+      </div>
+      <div className='list'>
+        <TaskList todoList={todoList} deleteTask={deleteTask} complateTask={complateTask} />
+      </div>
     </div>
   );
 }
-
 
 
 export default App;
