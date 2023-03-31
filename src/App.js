@@ -1,22 +1,32 @@
 // import styles from './App.module.css';
 import { useState, useEffect } from 'react'
 import TaskList from './TaskList';
+import Axios from 'axios';
 
 
-fetch("https://catfact.ninja/fact")
-  .then((res) => res.json())
-  .then((data) => {
-    console.log(data.fact);
-  })
+// fetch("https://catfact.ninja/fact")
+//   .then((res) => res.json())
+//   .then((data) => {
+//     console.log(data.fact);
+//   })
 
 
 function App() {
 
+  const url = "https://catfact.ninja/fact";
+  Axios.get(url).then((res) => {
+    console.log(res.data)
+  })
+
+
+
   const [todoList, setTodoList] = useState([]);
   const [newTask, setNewTask] = useState('');
 
+
+
   const addNewTask = () => {
-    const url = "https://catfact.ninja/fact";
+
 
 
 
