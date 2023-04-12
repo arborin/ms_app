@@ -1,6 +1,7 @@
 import React from 'react'
 import { useQuery } from '@tanstack/react-query'
 import Axios from 'axios'
+import ContactForm from './ContactForm'
 
 export default function Home() {
 
@@ -28,6 +29,7 @@ export default function Home() {
             <h1>THIS IS HOME PAGE</h1>
             <p>{data?.fact}</p>
             <button onClick={refetch}>New data</button>
+            <ContactForm />
         </div>
     )
 }
